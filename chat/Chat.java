@@ -1,3 +1,5 @@
+package chat;
+
 import java.util.Scanner;
 
 class Chat {
