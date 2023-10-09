@@ -1,14 +1,14 @@
 import java.util.*;
 
 class ChatterBot {
-	static final String REQUEST_PREFIX = "say ";
+	private static final String REQUEST_PREFIX = "say ";
 
-	String botName;
-	Random rand = new Random();
-	String[] repliesToIllegalRequest;
-	String[] repliesToLegalRequest;
+	private String botName;
+	private Random rand = new Random();
+	private String[] repliesToIllegalRequest;
+	private String[] repliesToLegalRequest;
 
-	ChatterBot(String[] repliesToIllegalRequest, String[] repliesToLegalRequest, String botName) {
+	public ChatterBot(String[] repliesToIllegalRequest, String[] repliesToLegalRequest, String botName) {
 		this.botName = botName;
 		this.repliesToIllegalRequest = new String[repliesToIllegalRequest.length];
 		this.repliesToLegalRequest = new String[repliesToLegalRequest.length];
@@ -20,24 +20,32 @@ class ChatterBot {
 		}
 	}
 
-	String replyTo(String statement) {
-		String currentReplayRequestStatement[];
-
+	public String replyTo(String statement) {
 		if (statement.startsWith(REQUEST_PREFIX)) {
-			currentReplayRequestStatement = this.repliesToLegalRequest;
-		} else {
-			currentReplayRequestStatement = this.repliesToIllegalRequest;
+			return respondToLegalRequest(statement);
 		}
-		System.out.println(currentReplayRequestStatement[0]);
-		int randomIndex = rand.nextInt(currentReplayRequestStatement.length);
-		String reply = currentReplayRequestStatement[randomIndex];
+		return respondToIllegalRequest(statement);
+	}
+
+	public String getName() {
+		return this.botName;
+	}
+
+	private String respondToIllegalRequest(String statement) {
+		int randomIndex = rand.nextInt(repliesToIllegalRequest.length);
+		String reply = repliesToIllegalRequest[randomIndex];
 		if (rand.nextBoolean()) {
 			reply = reply + statement;
 		}
 		return reply;
 	}
 
-	String getName() {
-		return this.botName;
+	private String respondToLegalRequest(String statement) {
+		int randomIndex = rand.nextInt(repliesToLegalRequest.length);
+		String reply = repliesToLegalRequest[randomIndex];
+		if (rand.nextBoolean()) {
+			reply = reply + statement;
+		}
+		return reply;
 	}
 }
