@@ -31,21 +31,34 @@ public class Board {
     }
 
     public boolean putMark(Mark mark, int row, int col) {
-        if (row <= 0 || col <= 0) {
+        // * If the row/col is'nt right, return false
+        if (row < 0 || row >= SIZE || col < 0 || col >= SIZE) {
             return false;
         }
-        // If col/row is already used -> return false
 
-        // Put the mark in the right place:
-        // Set the board with the new place
-        // Render the board
-        // Check if game over
+        // * If the place already used, return false
+        if (this.board[row][col] != Mark.BLANK) {
+            return false;
+        }
+
+        this.board[row][col] = mark;
+        isGameOver();
         return true;
     }
 
     public boolean isGameOver() {
+        Mark playerWin;
+
+        for (int row = 0; row < SIZE; row++) {
+            for (int col = 0; col < SIZE; col++) {
+
+            }
+        }
+
         this.gameStatus = GameStatus.IN_PROGRESS;
         return false;
+        // System.out.println("YOU WIN:");
+        // return true;
     }
 
     public Mark getMark(int row, int col) {
