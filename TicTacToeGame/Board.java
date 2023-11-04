@@ -14,14 +14,16 @@ enum GameStatus {
 public class Board {
 
     public static final int SIZE = 3;
-    public static final int WIN_STREAK = 3;
+    public static final int WIN_STREAK = 2;
     private Mark[][] board;
     private GameStatus gameStatus;
+    private int fullCellsNum;
 
     // * Contractor: set game status to in progress and put all board as blank */
     public Board() {
         this.gameStatus = gameStatus.IN_PROGRESS;
         this.board = new Mark[SIZE][SIZE];
+        this.fullCellsNum = 0;
 
         for (int row = 0; row < SIZE; row++) {
             for (int col = 0; col < SIZE; col++) {
@@ -42,23 +44,111 @@ public class Board {
         }
 
         this.board[row][col] = mark;
-        isGameOver();
+        this.fullCellsNum++;
         return true;
     }
 
-    public boolean isGameOver() {
-        Mark playerWin;
+    private boolean checkRow(Mark mark, int row) {
+        int countStreak = 0;
+        for (int col = 0; col < SIZE; col++) {
+            if (this.board[row][col] == mark) {
+                countStreak++;
+                if (countStreak == WIN_STREAK) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 
+    private boolean checkColumn(Mark mark, int col) {
+        int countStreak = 0;
         for (int row = 0; row < SIZE; row++) {
-            for (int col = 0; col < SIZE; col++) {
+            if (this.board[row][col] == mark) {
+                countStreak++;
+                if (countStreak == WIN_STREAK) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 
+    private boolean checkDiagonal(Mark mark, int col, int row) {
+        int countStreak = 1;
+        int rowToCheck = row;
+        int colToCheck = col;
+
+        // Check bottom-right diagonal
+        while (rowToCheck < SIZE - 1 && colToCheck < SIZE - 1 && this.board[rowToCheck + 1][colToCheck + 1] == mark) {
+            rowToCheck++;
+            colToCheck++;
+            countStreak++;
+            if (countStreak == WIN_STREAK) {
+                return true;
             }
         }
 
-        this.gameStatus = GameStatus.IN_PROGRESS;
+        // Reset the counters
+        rowToCheck = row;
+        colToCheck = col;
+        countStreak = 1;
+
+        // Check top-left diagonal
+        while (rowToCheck > 0 && colToCheck > 0 && this.board[rowToCheck - 1][colToCheck - 1] == mark) {
+            rowToCheck--;
+            colToCheck--;
+            countStreak++;
+            if (countStreak == WIN_STREAK) {
+                return true;
+            }
+        }
+
+        // Reset the counters
+        rowToCheck = row;
+        colToCheck = col;
+        countStreak = 1;
+
+        // Check bottom-left diagonal
+        while (rowToCheck < SIZE - 1 && colToCheck > 0 && this.board[rowToCheck + 1][colToCheck - 1] == mark) {
+            rowToCheck++;
+            colToCheck--;
+            countStreak++;
+            if (countStreak == WIN_STREAK) {
+                return true;
+            }
+        }
+
+        // Reset the counters
+        rowToCheck = row;
+        colToCheck = col;
+        countStreak = 1;
+
+        // Check top-right diagonal
+        while (rowToCheck > 0 && colToCheck < SIZE - 1 && this.board[rowToCheck - 1][colToCheck + 1] == mark) {
+            rowToCheck--;
+            colToCheck++;
+            countStreak++;
+            if (countStreak == WIN_STREAK) {
+                return true;
+            }
+        }
+
         return false;
-        // System.out.println("YOU WIN:");
-        // return true;
+    }
+
+    public Mark isGameWin(Mark markTurn, int rowTurn, int colTurn) {
+        if (this.fullCellsNum == SIZE * SIZE) {
+            System.out.println("No one win :(");
+            return Mark.BLANK;
+        }
+
+        if (checkRow(markTurn, rowTurn) || checkColumn(markTurn, colTurn)
+                || checkDiagonal(markTurn, colTurn, rowTurn)) {
+            System.out.println(markTurn + " WINNNNN ");
+            return markTurn;
+        }
+        return null;
     }
 
     public Mark getMark(int row, int col) {
