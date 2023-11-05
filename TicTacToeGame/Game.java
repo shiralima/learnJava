@@ -16,9 +16,9 @@ public class Game {
     }
 
     public void run() {
-        System.out.println("WE START THE GAME, GOOD LACK");
+        System.out.println("WE START THE GAME, GOOD LACK \n");
         System.out.println(String.format("X player is: %s", playerX)); //TODO get type
-        System.out.println(String.format("O player is: %s", playerO));
+        System.out.println(String.format("O player is: %s \n", playerO));
         int counter = 0;
         while (true) {
             if (counter % 2 == 0) {
