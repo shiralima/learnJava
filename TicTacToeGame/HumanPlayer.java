@@ -13,6 +13,7 @@ public class HumanPlayer implements Player {
      * If there are illegal the putMark function will return false, if so
      * we call askCoordinationsFromUser until the input will be legal
      */
+    @Override
     public boolean playTurn(Board board, Mark mark) {
         boolean isTurnPlayed = false;
         boolean isGameFinished = false;

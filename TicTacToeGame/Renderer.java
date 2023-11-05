@@ -6,5 +6,5 @@ enum RendererType {
 }
 
 interface Renderer {
-    public void renderBoard(Board board);
+    void renderBoard(Board board);
 }

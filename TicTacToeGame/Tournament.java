@@ -26,12 +26,8 @@ public class Tournament {
         tournamentNum = scanner.nextInt();
 
         System.out.println("Please enter if you want your board game render?");
-        RendererType renderType = getValidRendererType();
-        if (renderType.equals(RendererType.CONSOLE)) {
-            renderer = new ConsoleRenderer();
-        } else {
-            renderer = new VoidRenderer();
-        }
+        RendererFactory rendererFactory = new RendererFactory();
+        renderer = rendererFactory.buildRenderer(getValidRendererType());
 
         System.out.println("Please enter the first player type");
         PlayerType player1Type = getValidPlayerType();
@@ -99,18 +95,10 @@ public class Tournament {
      *                    the user (startTournament function)
      */
     private void buildPlayers(PlayerType[] playersTypes) {
+        PlayerFactory playerFactory = new PlayerFactory();
         players = new Player[2];
         for (int i = 0; i < 2; i++) {
-            PlayerType playerType = playersTypes[i];
-            switch (playerType) {
-                case HUMAN:
-                    players[i] = new HumanPlayer();
-                    break;
-                case CLEVER:
-                    break;
-                case WHATEVER:
-                    break;
-            }
+            players[i] = playerFactory.buildPlayer(playersTypes[i]);
         }
         this.players = players;
         startNewGame();

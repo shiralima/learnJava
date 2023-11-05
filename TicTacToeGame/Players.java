@@ -7,5 +7,5 @@ enum PlayerType {
 }
 
 interface Player {
-    public boolean playTurn(Board board, Mark mark);
+    boolean playTurn(Board board, Mark mark);
 }

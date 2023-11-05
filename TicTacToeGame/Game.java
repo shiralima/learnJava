@@ -17,8 +17,8 @@ public class Game {
 
     public void run() {
         System.out.println("WE START THE GAME, GOOD LACK \n");
-        System.out.println(String.format("X player is: %s", playerX)); //TODO get type
-        System.out.println(String.format("O player is: %s \n", playerO));
+        System.out.println(String.format("X player is: %s", getPlayerTypeStr(playerX)));
+        System.out.println(String.format("O player is: %s \n", getPlayerTypeStr(playerO)));
         int counter = 0;
         while (true) {
             if (counter % 2 == 0) {
@@ -37,5 +37,15 @@ public class Game {
             this.renderer.renderBoard(this.board);
             counter++;
         }
+    }
+
+    private String getPlayerTypeStr(Player player) {
+        if (player instanceof HumanPlayer) {
+            return "Human Player";
+        }
+        if (player instanceof CleverPlayer) {
+            return "Clever Player";
+        }
+        return "Whatever Player";
     }
 }

@@ -81,6 +81,7 @@ class ConsoleRenderer implements Renderer{
 	* Prints the supplied board to the console.
 	* @param board the board to print.
 	*/
+	@Override
 	public void renderBoard(Board board) {
 		for(int i = 0 ; i < Board.SIZE ; i++) {
 			for(int j = 0 ; j < Board.SIZE ; j++) {
