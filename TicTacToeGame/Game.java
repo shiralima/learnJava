@@ -48,4 +48,22 @@ public class Game {
         }
         return "Whatever Player";
     }
+
+    public Mark getWinner() {
+        Mark[] players = { Mark.X, Mark.O };
+
+        for (Mark player : players) {
+            for (int i = 0; i < Board.SIZE; i++) {
+                if (board.isGameWin(player, i, i) == Mark.BLANK) {
+                    System.out.println("No one win :(");
+                    return player;
+                } else if (board.isGameWin(player, i, i) != null) {
+                    System.out.println(player + " WINNNNN ");
+                    return player;
+                }
+            }
+        }
+        return null;
+    }
+
 }

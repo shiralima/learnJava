@@ -14,7 +14,7 @@ enum GameStatus {
 public class Board {
 
     public static final int SIZE = 3;
-    public static final int WIN_STREAK = 2;
+    public static final int WIN_STREAK = 3;
     private Mark[][] board;
     private GameStatus gameStatus;
     private int fullCellsNum;
@@ -139,13 +139,12 @@ public class Board {
 
     public Mark isGameWin(Mark markTurn, int rowTurn, int colTurn) {
         if (this.fullCellsNum == SIZE * SIZE) {
-            System.out.println("No one win :(");
             return Mark.BLANK;
         }
 
-        if (checkRow(markTurn, rowTurn) || checkColumn(markTurn, colTurn)
-                || checkDiagonal(markTurn, colTurn, rowTurn)) {
-            System.out.println(markTurn + " WINNNNN ");
+        if (checkRow(markTurn, rowTurn) ||
+                checkColumn(markTurn, colTurn) ||
+                checkDiagonal(markTurn, colTurn, rowTurn)) {
             return markTurn;
         }
         return null;

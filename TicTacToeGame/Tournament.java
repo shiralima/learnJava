@@ -1,11 +1,12 @@
 package TicTacToeGame;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Tournament {
 
     private Scanner scanner;
-    private int tournamentNum; // ?
+    private int tournamentRoundNum; // ?
     private Mark[] wins;
 
     // * This info want change from game to game */
@@ -21,11 +22,14 @@ public class Tournament {
         this.scanner = new Scanner(System.in);
     }
 
-    public void startTournament() {
+    public void playTournament() {
         System.out.println("Please enter round number for plying");
-        tournamentNum = scanner.nextInt();
+        tournamentRoundNum = scanner.nextInt();
 
-        System.out.println("Please enter if you want your board game render?");
+        this.wins = new Mark[tournamentRoundNum];
+        Arrays.fill(this.wins, Mark.BLANK);
+
+        System.out.println("Please enter how you want your board game will be render?");
         RendererFactory rendererFactory = new RendererFactory();
         renderer = rendererFactory.buildRenderer(getValidRendererType());
 
@@ -37,6 +41,8 @@ public class Tournament {
 
         PlayerType[] playerTypes = { player1Type, player2Type };
         buildPlayers(playerTypes);
+
+        startPlayGames();
     }
 
     /**
@@ -89,10 +95,10 @@ public class Tournament {
 
     /**
      * This function build the players to tournament.
-     * After building call to startNewGameWith the players.
+     * After building call to startPlayGamesWith the players.
      * 
      * @param plyersTypes an array of all the player types to tournament given by
-     *                    the user (startTournament function)
+     *                    the user (playTournament function)
      */
     private void buildPlayers(PlayerType[] playersTypes) {
         PlayerFactory playerFactory = new PlayerFactory();
@@ -101,28 +107,39 @@ public class Tournament {
             players[i] = playerFactory.buildPlayer(playersTypes[i]);
         }
         this.players = players;
-        startNewGame();
     }
 
-    private void startNewGame() {
+    public void showTournamentResult() {
+        System.out.println("Tournament Results:");
+        System.out.println("Round\t\tWinner");
+        for (int i = 0; i < this.tournamentRoundNum; i++) {
+            if (wins[i] == Mark.BLANK) {
+                System.out.println((i + 1) + "\t\t" + "no one win");
+            }
+            System.out.println((i + 1) + "\t\t" + wins[i]);
+        }
+    }
+
+    private void startPlayGames() {
         Player currentPlayer = players[0];
         Player nextPlayer = players[1];
-        int round = 1;
+        int roundPlayed = 0;
 
-        while (round <= tournamentNum) {
+        while (roundPlayed < tournamentRoundNum) {
             Game newGame = new Game(currentPlayer, nextPlayer, renderer);
             newGame.run();
-
+            
+            wins[roundPlayed] = newGame.getWinner();
             Player temp = currentPlayer;
             currentPlayer = nextPlayer;
             nextPlayer = temp;
-            round++;
+            roundPlayed++;
         }
-
+        showTournamentResult();
     }
 
     public static void main(String[] args) {
         Tournament tournament = new Tournament();
-        tournament.startTournament();
+        tournament.playTournament();
     }
 }
