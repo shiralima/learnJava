@@ -1,0 +1,12 @@
+Conventions:
+
+PascalCase - class name
+camelCase - functions, varibles name
+UPER_CASE - const with final before it
+_underscore_case - attribute name (_hello)
+
+API:
+
+Before the main - // until 2 lines of explanation of the program (also before the import)
+
+
