@@ -1,11 +1,16 @@
-package Maman11; //todo sh - remove this line before add this task to Zip file and send it
-
-// This program is for checking the 2 triangle is congruent.
-// The program check it by the 3 vertex of each triangle and by the congruent sentence of line-line-line. 
+/**
+ * The Congruent class checks if two triangles are congruent.
+ */
 
 import java.util.Scanner;
 
 public class Congruent {
+
+    /** 
+     * This program checks if two triangles are congruent. 
+     * It does so by comparing the coordinates of the vertices and applying the congruence criterion of line-line-line.
+     */
+
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
 

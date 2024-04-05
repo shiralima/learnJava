@@ -1,11 +1,16 @@
-package Maman11;//todo sh - remove this line before add this task to Zip file and send it
-
-// This program takes three side lengths of a triangle as input from the user,
-// verifies if they can form a triangle, and then calculates its area and perimeter.
-
+/**
+ * The Triangle class calculates area and perimeter.
+ */
+ 
 import java.util.Scanner;
 
 public class Triangle {
+
+    /** 
+     * This program takes three side lengths of a triangle as input from the user,
+     * verifies if they can form a triangle, and then calculates its area and perimeter. 
+     */
+     
     public static void main(String[] args) {
 
         Scanner scan = new Scanner(System.in);
