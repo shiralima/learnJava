@@ -1,5 +1,8 @@
 package Maman12; //todo sh -  remove this 
 
+/**
+ * This class represents a three-dimensional point with x, y, and z coordinates.
+ */
 public class Point3D {
 
     private double _x;
@@ -24,7 +27,7 @@ public class Point3D {
     }
 
     /**
-     * Creates a new Point3D object with all coordinates initialized to zero.
+     * Creates a new Point3D object with all coordinates initialized to 0.
      */
     public Point3D() {
         this(DEFAULT_VALUE, DEFAULT_VALUE, DEFAULT_VALUE);
@@ -37,7 +40,6 @@ public class Point3D {
      * @param other The Point3D object to initialize this object with its values.
      */
     public Point3D(Point3D other) {
-        // todo sh check not null
         this(other.getX(), other.getY(), other.getZ());
     }
 
@@ -53,15 +55,6 @@ public class Point3D {
     }
 
     /**
-     * Sets the x-coordinate of the point.
-     * 
-     * @param num The new x-coordinate.
-     */
-    public void setX(double num) {
-        _x = num;
-    }
-
-    /**
      * Gets the y-coordinate of the point.
      * 
      * @return The y-coordinate.
@@ -71,21 +64,30 @@ public class Point3D {
     }
 
     /**
-     * Sets the y-coordinate of the point.
-     * 
-     * @param num The new y-coordinate.
-     */
-    public void setY(double num) {
-        _y = num;
-    }
-
-    /**
      * Gets the z-coordinate of the point.
      * 
      * @return The z-coordinate.
      */
     public double getZ() {
         return _z;
+    }
+
+    /**
+     * Sets the x-coordinate of the point.
+     * 
+     * @param num The new x-coordinate.
+     */
+    public void setX(double num) {
+        _x = num;
+    }
+
+    /**
+     * Sets the y-coordinate of the point.
+     * 
+     * @param num The new y-coordinate.
+     */
+    public void setY(double num) {
+        _y = num;
     }
 
     /**
@@ -108,15 +110,6 @@ public class Point3D {
     }
 
     /**
-     * Return a string representation of this Point3D object's coordinates.
-     * 
-     * @return a string representation of this Point3D object's coordinates.
-     */
-    public String toString() {
-        return "(" + _x + "," + _y + "," + _z + ")";
-    }
-
-    /**
      * Calculates the distance between this Point3D object and another Point3D
      * object.
      * 
@@ -125,41 +118,66 @@ public class Point3D {
      *         object.
      */
     public double distance(Point3D p) {
-        return Math.sqrt(Math.pow((_x - p.getX()), 2) + Math.pow((_y - p.getY()), 2) + Math.pow((_z - p.getZ()), 2));
+        double dx = _x - p.getX();
+        double dy = _y - p.getY();
+        double dz = _z - p.getZ();
+        return Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2) + Math.pow(dz, 2));
     }
 
+    /**
+     * Checks if this point is above the other point according to z coordination.
+     *
+     * @param other The point to check whether this point is above it
+     * @return true if this point is above the other point, false otherwise
+     */
     public boolean isAbove(Point3D other) {
         return _z > other.getZ();
     }
 
+    /**
+     * Checks if this point is under the other point according to z coordination.
+     *
+     * @param other The point to check whether this point is under it.
+     * @return true if this point is under the other point, false otherwise.
+     */
     public boolean isUnder(Point3D other) {
 
-        System.out.println("this in isUnder" + this);
-        System.out.println("other in isUnder" + other);
-
-        if (isAbove(other) && isAbove(this)) {
-            System.out.println("isAbove other" + isAbove(other));
-            System.out.println("isAbove this" + isAbove(this));
-            System.out.println("isUnder false inside equals");
-            return false; // both equals
+        // Both points have equal z coordinates
+        if (!isAbove(other) && !other.isAbove(this)) {
+            return false;
         }
 
         if (isAbove(other)) {
-            System.out.println("isUnder false inside isAbove other");
             return false;
         }
 
         return true;
     }
 
+    /**
+     * Checks if this point is to the left of the other point according to y
+     * coordination.
+     *
+     * @param other The point to check whether this point is left of it
+     * @return true if this point is to the left of the other point, false otherwise
+     */
     public boolean isLeft(Point3D other) {
         return _y < other.getY();
     }
 
+    /**
+     * Checks if this point is to the right of the other point according to y
+     * coordination.
+     *
+     * @param other The point to check whether this point is right of it.
+     * @return true if this point is to the right of the other point, false
+     *         otherwise.
+     */
     public boolean isRight(Point3D other) {
 
-        if (isLeft(other) && isLeft(this)) {
-            return false; // both equals
+        // Both points have equal y coordinates
+        if (!isLeft(other) && !other.isLeft(this)) {
+            return false;
         }
 
         if (isLeft(other)) {
@@ -169,14 +187,28 @@ public class Point3D {
         return true;
     }
 
+    /**
+     * Checks if this point is behind the other point according to x coordination.
+     *
+     * @param other The point to check whether this point is behind it.
+     * @return true if this point is behind the other point, false otherwise.
+     */
     public boolean isBehind(Point3D other) {
         return _x < other.getX();
     }
 
+    /**
+     * Checks if this point is in front of the other point according to x
+     * coordination.
+     *
+     * @param other The point to check whether this point is in front of it.
+     * @return true if this point is in front of the other point, false otherwise.
+     */
     public boolean isInFrontOf(Point3D other) {
 
-        if (isBehind(other) && isBehind(this)) {
-            return false; // both equals
+        // Both points have equal x coordinates
+        if (!isBehind(other) && !other.isBehind(this)) {
+            return false;
         }
 
         if (isBehind(other)) {
@@ -186,10 +218,25 @@ public class Point3D {
         return true;
     }
 
+    /**
+     * Moves the point by specified amounts along each axis.
+     *
+     * @param dx The amount to move along the x-axis.
+     * @param dy The amount to move along the y-axis.
+     * @param dz The amount to move along the z-axis.
+     */
     public void move(double dx, double dy, double dz) {
-        setX(_x + dx);
-        setY(_y + dy);
-        setZ(_z + dz);
+        _x += dx;
+        _y += dy;
+        _z += dz;
     }
 
+    /**
+     * Return a string representation of this Point3D object's coordinates.
+     * 
+     * @return a string representation of this Point3D object's coordinates.
+     */
+    public String toString() {
+        return "(" + _x + "," + _y + "," + _z + ")";
+    }
 }

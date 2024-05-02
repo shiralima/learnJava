@@ -1,6 +1,6 @@
 package Maman12;
 
-public class StudentTesterPoint3D {
+public class TesterPoint3D {
     public static void main(String[] args) {
         System.out.println("********************************************************************************************************************************");
         System.out.println("IMPORTANT: Please note that this is only a basic test class. You will need to write your own test to fully test class your code.");
@@ -111,8 +111,9 @@ public class StudentTesterPoint3D {
             System.out.println("\tisUnder is not correct with: !p1.isUnder(p2)");
         }
         if (p2.isUnder(p3)) {
+            System.out.println("p2" + p2.toString());
+            System.out.println("p3" + p3.toString());
             System.out.println("\tisUnder is not correct with: p2.isUnder(p3)");
-            //todo sh - check here error in tester
         }
 
         System.out.println("Calling isLeft...");
@@ -136,6 +137,8 @@ public class StudentTesterPoint3D {
             System.out.println("\tisRight is not correct with: !p2.isRight(p1)");
         }
         if (p2.isRight(p3)) {
+            System.out.println("p2" + p2.toString());
+            System.out.println("p3" + p3.toString());
             System.out.println("\tisRight is not correct with: p2.isRight(p3)");
         }
 
@@ -160,6 +163,8 @@ public class StudentTesterPoint3D {
             System.out.println("\tisInFrontOf is not correct with: !p2.isInFrontOf(p1)");
         }
         if (p2.isInFrontOf(p3)) {
+            System.out.println("p2" + p2.toString());
+            System.out.println("p3" + p3.toString());
             System.out.println("\tisInFrontOf is not correct with: p2.isInFrontOf(p3)");
         }
 
