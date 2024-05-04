@@ -1,5 +1,6 @@
 package Maman12; //todo sh -  remove this 
 
+//todo sh - check aliasing 
 /**
  * This class represents a three-dimensional point with x, y, and z coordinates.
  */
@@ -9,7 +10,7 @@ public class Point3D {
     private double _y;
     private double _z;
 
-    static final double DEFAULT_VALUE = 0;
+    static final double DEFAULT_COORDINATION_VALUE = 0;
 
     // Constructors:
 
@@ -30,7 +31,7 @@ public class Point3D {
      * Creates a new Point3D object with all coordinates initialized to 0.
      */
     public Point3D() {
-        this(DEFAULT_VALUE, DEFAULT_VALUE, DEFAULT_VALUE);
+        this(DEFAULT_COORDINATION_VALUE, DEFAULT_COORDINATION_VALUE, DEFAULT_COORDINATION_VALUE);
     }
 
     /**
@@ -40,7 +41,7 @@ public class Point3D {
      * @param other The Point3D object to initialize this object with its values.
      */
     public Point3D(Point3D other) {
-        this(other.getX(), other.getY(), other.getZ());
+        this(other._x, other._y, other._z);
     }
 
     // Getters and Setters:
@@ -106,7 +107,7 @@ public class Point3D {
      * @return true if the two objects have the same coordinates, false otherwise.
      */
     public boolean equals(Point3D other) {
-        return _x == other.getX() && _y == other.getY() && _z == other.getZ();
+        return _x == other._x && _y == other._y && _z == other._z;
     }
 
     /**
