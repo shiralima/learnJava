@@ -14,9 +14,13 @@ public class Main {
         // System.out.println(Count7.count7InNum(77709087));
         // System.out.println("solution " + Arithmetic.div(10, 2));
 
-        int[] arr = { 1, 2, 4, 5, 10 };
+        int[] arr = { 1, 11, 0, 5, 1 };
+        int[] arr2 = { 1, 2, 1, 1, 1 };
+
         // System.out.println(Arithmetic.mul(arr));
 
-        System.out.println(Arrays.toString(ReverseArray.reverse(arr)));
+        // System.out.println(Arrays.toString(ReverseArray.reverse(arr)));
+
+        System.out.println(Count.count(arr, arr2));
     }
 }
