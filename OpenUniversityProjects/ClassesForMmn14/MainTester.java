@@ -10,6 +10,16 @@ public class MainTester {
         l1.addToEnd(0);
         l1.addToEnd(-1);
         l1.addToEnd(2);
+        l1.addToEnd(2);
+        l1.addToEnd(2);
+        l1.addToEnd(2);
+        l1.addToEnd(2);
+        l1.addToEnd(2);
+        l1.addToEnd(2);
+        l1.addToEnd(2);
+        l1.addToEnd(2);
+        l1.addToEnd(2);
+
         // {0, 0, 0, 0}
 
         IntListTwo l2 = new IntListTwo();
@@ -19,7 +29,7 @@ public class MainTester {
         l2.addToEnd(0);
         // {0, 0, 0}
 
-        System.out.println("soluution: " + l1.longestCommonSublist(l1));
+        System.out.println("soluution: " + l1.maxEqualValue());
     }
 
 }

@@ -70,11 +70,14 @@ public class IntListTwo {
         return 0;
     }
 
+    // sum all the nums between low to high
     private int f(int low, int high) {
         int result = 0;
         IntNodeTwo temp = _head;
+        // O(n)
         for (int i = 0; i < low; i++)
             temp = temp.getNext();
+        // O(n)
         for (int j = low; j <= high; j++) {
             result += temp.getNum();
             temp = temp.getNext();
@@ -82,10 +85,14 @@ public class IntListTwo {
         return result;
     }
 
+    // find if for input num there is sub list that it's sum is the sam as num. if
+    // so print between i (first place) and j (second place)
+    // Else if not find range that sum is equal to num print No
     public boolean what(int num) {
-        int listSize = size();
-        for (int i = 0; i < listSize; i++) {
-            for (int j = i; j < listSize; j++) {
+        int listSize = size(); // O(n)
+        // O(n^3)
+        for (int i = 0; i < listSize; i++) { // O(n)
+            for (int j = i; j < listSize; j++) { // O(n)
                 if (f(i, j) == num) {
                     System.out.println("between " + i + " and " + j);
                     return true;
@@ -97,6 +104,12 @@ public class IntListTwo {
     }
 
     public boolean betterWhat(int num) {
+        IntNodeTwo left = _head, right = _tail;
+
+        while (left != right) {
+            
+        }
+
         // write your code here
         return true;
     }
@@ -105,69 +118,90 @@ public class IntListTwo {
         return longestCommonSublist(list2, _head, list2._head);
     }
 
-    public int longestCommonSublist(IntListTwo list2, IntNodeTwo currentValue1, IntNodeTwo currentValue2) {
+    public int longestCommonSublist(IntListTwo list2, IntNodeTwo currentNode1, IntNodeTwo currentNode2) {
         int localCountInLists = 0; // local count for every call.
 
-        if (currentValue1.getNum() == currentValue2.getNum()) {
-            if (isNumInLists(currentValue1.getNum(), list2)) {
+        if (currentNode1.getNum() == currentNode2.getNum()) {
+            if (isNumInLists(currentNode1.getNum(), list2)) {
                 localCountInLists++;
             }
         }
 
         else {
-            if (isNumInLists(currentValue1.getNum(), list2)) {
+            if (isNumInLists(currentNode1.getNum(), list2)) {
                 localCountInLists++;
             }
 
-            if (isNumInLists(currentValue2.getNum(), list2)) {
+            if (isNumInLists(currentNode2.getNum(), list2)) {
                 localCountInLists++;
             }
         }
 
-        if (currentValue1.getNext() == null) {
-            if (currentValue2.getNext() == null) {
+        if (currentNode1.getNext() == null) {
+            if (currentNode2.getNext() == null) {
                 return localCountInLists;
             }
 
-            return localCountInLists + longestCommonSublist(list2, currentValue1, currentValue2.getNext());
+            return localCountInLists + longestCommonSublist(list2, currentNode1, currentNode2.getNext());
         }
 
-        if (currentValue2.getNext() == null) {
-            return localCountInLists + longestCommonSublist(list2, currentValue1.getNext(), currentValue2);
+        if (currentNode2.getNext() == null) {
+            return localCountInLists + longestCommonSublist(list2, currentNode1.getNext(), currentNode2);
         }
 
-        return localCountInLists + longestCommonSublist(list2, currentValue1.getNext(), currentValue2.getNext());
+        return localCountInLists + longestCommonSublist(list2, currentNode1.getNext(), currentNode2.getNext());
     }
 
     private boolean isNumInLists(int num, IntListTwo list2) {
-        boolean isInList1 = false, isInList2 = false;
-        return isNumInLists(num, _head, list2._head, isInList1, isInList2);
+        boolean isNumInList1 = false, isNumInList2 = false;
+        return isNumInLists(num, _head, list2._head, isNumInList1, isNumInList2);
     }
 
-    private boolean isNumInLists(int num, IntNodeTwo currentValue1, IntNodeTwo currentValue2, boolean isInList1,
-            boolean isInList2) {
+    private boolean isNumInLists(int num, IntNodeTwo currentNode1, IntNodeTwo currentNode2, boolean isNumInList1,
+            boolean isNumInList2) {
 
-        if (currentValue1.getNum() == num) {
-            isInList1 = true;
+        if (currentNode1.getNum() == num) {
+            isNumInList1 = true;
         }
 
-        if (currentValue2.getNum() == num) {
-            isInList2 = true;
+        if (currentNode2.getNum() == num) {
+            isNumInList2 = true;
         }
 
-        if (isInList1 && isInList2) {
+        if (isNumInList1 && isNumInList2) {
             return true;
         }
 
-        if (currentValue1.getNext() == null || currentValue2.getNext() == null) {
+        if (currentNode1.getNext() == null || currentNode2.getNext() == null) {
             return false;
         }
 
-        return isNumInLists(num, currentValue1.getNext(), currentValue2.getNext(), isInList1, isInList2);
+        return isNumInLists(num, currentNode1.getNext(), currentNode2.getNext(), isNumInList1, isNumInList2);
     }
 
     public int maxEqualValue() {
-        // write your code here
-        return 0;
+        return maxEqualValue(_head, 0);
+    }
+
+    public int maxEqualValue(IntNodeTwo currentNode, int maxEqualValue) {
+        if (currentNode.getNext() == null) {
+            return maxEqualValue;
+        }
+
+        int currentSubListSize = subListSize(currentNode.getNum(), currentNode);
+
+        return maxEqualValue(currentNode.getNext(), Math.max(maxEqualValue, currentSubListSize));
+    }
+
+    private int subListSize(int num, IntNodeTwo currentNode) {
+        if (currentNode.getNext() == null) {
+            return 1;
+        }
+
+        if (currentNode.getNum() != num) {
+            return 0;
+        }
+
+        return 1 + subListSize(num, currentNode.getNext());
     }
 }
