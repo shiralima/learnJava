@@ -15,12 +15,19 @@ public class Main {
         // System.out.println("solution " + Arithmetic.div(10, 2));
 
         int[] arr = { 1, 11, 0, 5, 1 };
-        int[] arr2 = { 1, 2, 1, 1, 1 };
+        int[] arr2 = { 1, 2, 1, 8, 1 };
 
         // System.out.println(Arithmetic.mul(arr));
 
         // System.out.println(Arrays.toString(ReverseArray.reverse(arr)));
 
-        System.out.println(Count.count(arr, arr2));
+        // System.out.println(Count.count(arr, arr2));
+
+        // System.out.println("s: " + MinValue.minValue(arr2));
+
+        // System.out.println("s: " + SortArray.halfMinValue(arr2));
+        // System.out.println("s: " + SortArray.maxEven(arr2));
+        System.out.println("s: " + SortArray.twoAscending(arr2));
+
     }
 }

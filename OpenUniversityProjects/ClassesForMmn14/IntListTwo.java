@@ -104,14 +104,22 @@ public class IntListTwo {
     }
 
     public boolean betterWhat(int num) {
-        IntNodeTwo left = _head, right = _tail;
+        int listSize = size(); // O(n)
+        int sum = 0; //todo - change 
+        IntNodeTwo temp = _head;
 
-        while (left != right) {
-            
+        for (int i = 0; i < listSize; i++) { // O(n)
+            for (int j = i; j < listSize; j++) { // O(n)
+                sum += temp.getNum();
+                if (sum == num) {
+                    System.out.println("between " + i + " and " + j);
+                    return true;
+                }
+                temp.getNext();
+            }
         }
-
-        // write your code here
-        return true;
+        System.out.println("No ");
+        return false;
     }
 
     public int longestCommonSublist(IntListTwo list2) {
