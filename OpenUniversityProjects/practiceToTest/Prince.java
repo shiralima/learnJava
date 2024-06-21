@@ -1,4 +1,4 @@
-package OpenUniversityProjects.practiceToTest;
+package practiceToTest;
 
 public class Prince {
 

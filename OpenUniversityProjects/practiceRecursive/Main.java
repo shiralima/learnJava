@@ -17,6 +17,13 @@ public class Main {
         int[] arr = { 1, 11, 0, 5, 1 };
         int[] arr2 = { 1, 2, 1, 8, 1 };
 
+        int[][] mat = {
+                { 1, 2, 1, 8, 1 },
+                { 1, 2, 1, 8, 1 },
+                { 1, 2, 1, 8, 1 },
+                { 1, 11, 0, 5, 1 },
+        };
+
         // System.out.println(Arithmetic.mul(arr));
 
         // System.out.println(Arrays.toString(ReverseArray.reverse(arr)));
@@ -27,7 +34,10 @@ public class Main {
 
         // System.out.println("s: " + SortArray.halfMinValue(arr2));
         // System.out.println("s: " + SortArray.maxEven(arr2));
-        System.out.println("s: " + SortArray.twoAscending(arr2));
+        // System.out.println("s: " + SortArray.twoAscending(arr2));
+        // System.out.println("sol: " + MaxInMat.findMaxValueInMatrix(mat));
+        // System.out.println("sol: " + SumIn.sumInArray(arr2, 0));
 
+        System.out.println("sol: " + CombineString.combineStrings("hello", "123"));
     }
 }
