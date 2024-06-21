@@ -1,4 +1,4 @@
-package OpenUniversityProjects.ClassesForMmn14;
+package ClassesForMmn14;
 
 public class MainTester {
 

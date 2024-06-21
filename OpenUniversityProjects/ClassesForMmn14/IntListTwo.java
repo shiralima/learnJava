@@ -1,4 +1,4 @@
-package OpenUniversityProjects.ClassesForMmn14; //todo - remove
+package ClassesForMmn14; //todo - remove
 
 public class IntListTwo {
     IntNodeTwo _head, _tail;
@@ -70,14 +70,11 @@ public class IntListTwo {
         return 0;
     }
 
-    // sum all the nums between low to high
     private int f(int low, int high) {
         int result = 0;
         IntNodeTwo temp = _head;
-        // O(n)
         for (int i = 0; i < low; i++)
             temp = temp.getNext();
-        // O(n)
         for (int j = low; j <= high; j++) {
             result += temp.getNum();
             temp = temp.getNext();
@@ -103,13 +100,44 @@ public class IntListTwo {
         return false;
     }
 
+    /**
+     * EX 2
+     * 
+     * 1. The "what" function checks if there is a sub array whose sum equals the
+     * specified number.
+     * If such a sub array exists, it prints the start and end indices of the
+     * sub array and returns true. If no such
+     * sub array is found, it prints "No" and returns false.
+     * 
+     * 2. Time Complexity of "what" function: In the "what" function,
+     * we have two nested loops that iterate over the list size,
+     * which means O(n^2) for this part.
+     * However, inside the nested loops, we call the "f" function, which itself
+     * iterates over the list within a for loop.
+     * This means that the total time complexity is O(n^3).
+     * 
+     * 4. Time Complexity of "betterWhat" function: In the "betterWhat" function,
+     * we have two nested loops that iterate over the list size,
+     * which means O(n^2).
+     * 
+     * 
+     * @param num the target sum to search for within contiguous sub arrays
+     * @return true if there exists a contiguous sub array with the sum equal to
+     *         num,
+     *         false otherwise
+     */
     public boolean betterWhat(int num) {
-        int listSize = size(); // O(n)
-        int sum = 0; //todo - change 
-        IntNodeTwo temp = _head;
+        int listSize = size();
+        int sum = _head.getNum();
 
-        for (int i = 0; i < listSize; i++) { // O(n)
-            for (int j = i; j < listSize; j++) { // O(n)
+        if (listSize == 1) {
+            return num == sum;
+        }
+
+        IntNodeTwo temp = _head.getNext();
+
+        for (int i = 0; i < listSize; i++) {
+            for (int j = i; j < listSize; j++) {
                 sum += temp.getNum();
                 if (sum == num) {
                     System.out.println("between " + i + " and " + j);
@@ -122,6 +150,7 @@ public class IntListTwo {
         return false;
     }
 
+    // * EX 3 */
     public int longestCommonSublist(IntListTwo list2) {
         return longestCommonSublist(list2, _head, list2._head);
     }
@@ -187,29 +216,57 @@ public class IntListTwo {
         return isNumInLists(num, currentNode1.getNext(), currentNode2.getNext(), isNumInList1, isNumInList2);
     }
 
+    /**
+     * Finds the maximum size of a contiguous sublist with equal values starting
+     * from the head of the linked list.
+     *
+     * @return the size of the largest sublist with equal values.
+     */
     public int maxEqualValue() {
         return maxEqualValue(_head, 0);
     }
 
-    public int maxEqualValue(IntNodeTwo currentNode, int maxEqualValue) {
+    /**
+     * Recursively finds the maximum size of a contiguous sublist with equal values.
+     *
+     * @param currentNode   the current node being checked.
+     * @param maxEqualValue the current maximum size of sublist with equal values.
+     * @return the updated maximum size of the sublist with equal values.
+     */
+    private int maxEqualValue(IntNodeTwo currentNode, int maxEqualValue) {
         if (currentNode.getNext() == null) {
             return maxEqualValue;
         }
 
+        // Get the size of the current sublist with equal values
         int currentSubListSize = subListSize(currentNode.getNum(), currentNode);
 
+        // Recursively call maxEqualValue with the maximum of the previous max and the
+        // current sublist size
         return maxEqualValue(currentNode.getNext(), Math.max(maxEqualValue, currentSubListSize));
     }
 
+    /**
+     * Calculates the size of a sublist starting from the current node with all
+     * values equal to the given number.
+     *
+     * @param num         the value to be matched in the sublist.
+     * @param currentNode the starting node of the sublist.
+     * @return the size of the sublist where all values are equal to the given
+     *         number.
+     */
     private int subListSize(int num, IntNodeTwo currentNode) {
+        // If we reach the tail, return 1
         if (currentNode.getNext() == null) {
             return 1;
         }
 
+        // If the current node's value is not equal to num, return 0
         if (currentNode.getNum() != num) {
             return 0;
         }
 
+        // Recursively call subListSize and add 1
         return 1 + subListSize(num, currentNode.getNext());
     }
 }

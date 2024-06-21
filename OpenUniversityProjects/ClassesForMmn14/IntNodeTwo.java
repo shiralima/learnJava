@@ -1,4 +1,4 @@
-package OpenUniversityProjects.ClassesForMmn14; //todo - remove
+package ClassesForMmn14; //todo - remove
 
 public class IntNodeTwo
 {
